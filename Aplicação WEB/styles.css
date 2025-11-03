@@ -1,0 +1,206 @@
+:root {
+  --accent: #2b7a78;
+  --muted: #6c757d;
+  --danger: #c0392b;
+  --bg: #f9fafb;
+  --card: #ffffff;
+}
+
+/* ===== GERAL ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: var(--bg);
+  color: #222;
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  background: var(--card);
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 16px;
+}
+
+.site-header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.site-header nav {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
+
+.site-header a {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.site-header a:hover {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* ===== MENSAGENS ===== */
+.msg {
+  background: #e9f7ef;
+  border-left: 4px solid #2ecc71;
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 6px;
+}
+
+.error {
+  background: #fdecea;
+  border-left: 4px solid var(--danger);
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 6px;
+  color: var(--danger);
+}
+
+/* ===== GRID E CARDS ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card .big {
+  font-size: 2rem;
+  margin: 6px 0;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.btn.secondary {
+  background: #cccccc;
+  color: #111;
+}
+
+a.small {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+a.small.danger {
+  color: var(--danger);
+}
+
+/* ===== TABELAS ===== */
+.fulltable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fulltable th,
+.fulltable td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.fulltable th {
+  background: #f7f7f7;
+  font-weight: 600;
+}
+
+.fulltable tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ===== FORMULÁRIOS ===== */
+form label {
+  display: block;
+  margin: 10px 0;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.form-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+/* ===== DETALHES ===== */
+.details dt {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.details dd {
+  margin: 0 0 8px 0;
+  color: var(--muted);
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  margin-top: 30px;
+  padding: 12px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 600px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .site-header nav {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
