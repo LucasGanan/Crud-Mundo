@@ -1,6 +1,6 @@
 <?php
-require 'db.php';
-require 'header.php';
+require 'db.php'; // Conecta ao banco de dados
+require 'header.php'; // Inclui cabeçalho
 ?>
 
 <section>
@@ -11,18 +11,21 @@ require 'header.php';
     <thead><tr><th>País</th><th>Cidade</th><th>População</th></tr></thead>
     <tbody>
 <?php
+// Query que seleciona a cidade mais populosa de cada país
 $sql = "
   SELECT p.nome AS pais, c.nome AS cidade, c.populacao
   FROM cidades c
   JOIN paises p ON c.id_pais = p.id_pais
   WHERE c.populacao = (
-    SELECT MAX(c2.populacao)
+    SELECT MAX(c2.populacao) 
     FROM cidades c2
     WHERE c2.id_pais = p.id_pais
   )
   ORDER BY p.nome
 ";
 $res = $mysqli->query($sql);
+
+// Itera por cada linha retornada e monta a tabela
 while ($row = $res->fetch_assoc()) {
     echo "<tr>
             <td>" . htmlspecialchars($row['pais']) . "</td>
@@ -39,6 +42,7 @@ while ($row = $res->fetch_assoc()) {
     <thead><tr><th>Continente</th><th>Total de Cidades</th></tr></thead>
     <tbody>
 <?php
+// Query que conta cidades agrupadas por continente
 $sql2 = "
   SELECT p.continente, COUNT(c.id_cidade) AS total
   FROM paises p
@@ -47,6 +51,8 @@ $sql2 = "
   ORDER BY total DESC
 ";
 $res2 = $mysqli->query($sql2);
+
+// Monta a tabela mostrando o total de cidades em cada continente
 while ($row = $res2->fetch_assoc()) {
     echo "<tr>
             <td>" . htmlspecialchars($row['continente']) . "</td>

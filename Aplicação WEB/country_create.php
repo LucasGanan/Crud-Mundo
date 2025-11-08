@@ -1,26 +1,33 @@
 <?php
 require 'db.php';
 
+// Quando o formulário é enviado via POST, tentamos inserir um novo país
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Pega e normaliza os valores do formulário
     $nome = trim($_POST['nome'] ?? '');
     $continente = trim($_POST['continente'] ?? '');
     $populacao = intval($_POST['populacao'] ?? 0);
     $idioma = trim($_POST['idioma'] ?? '');
 
+    // Validação básica dos campos
     if ($nome === '' || $continente === '' || $idioma === '' || $populacao <= 0) {
         $error = "Preencha todos os campos corretamente.";
     } else {
+        // Prepara e executa INSERT usando prepared statements para segurança
         $stmt = $mysqli->prepare("INSERT INTO paises (nome, continente, populacao, idioma) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssis", $nome, $continente, $populacao, $idioma);
         if ($stmt->execute()) {
+            // Sucesso -> redireciona para lista com mensagem
             header("Location: countries.php?msg=" . urlencode("País criado com sucesso."));
             exit;
         } else {
+            // Em caso de erro, salva mensagem para mostrar ao usuário
             $error = "Erro ao inserir: " . $mysqli->error;
         }
     }
 }
 
+// Inclui header e mostra o formulário (parte HTML abaixo)
 require 'header.php';
 ?>
 <section>

@@ -1,4 +1,5 @@
 <?php
+// Conexão e header
 require 'db.php';
 require 'header.php';
 ?>
@@ -22,17 +23,22 @@ require 'header.php';
     </thead>
     <tbody>
 <?php
+// Seleciona todos os países ordenados por id_pais (ordem de inserção)
 $stmt = $mysqli->prepare("SELECT id_pais, nome, continente, populacao, idioma FROM paises ORDER BY id_pais");
 $stmt->execute();
 $res = $stmt->get_result();
+
 while ($row = $res->fetch_assoc()) {
     $id = $row['id_pais'];
-    // contar cidades
+
+    // Para cada país, conta quantas cidades estão associadas
     $cstmt = $mysqli->prepare("SELECT COUNT(*) as c FROM cidades WHERE id_pais = ?");
     $cstmt->bind_param("i", $id);
     $cstmt->execute();
     $crow = $cstmt->get_result()->fetch_assoc();
     $countCities = $crow['c'] ?? 0;
+
+    // Monta a linha da tabela com valores escapados para evitar XSS
     echo "<tr>";
     echo "<td>{$id}</td>";
     echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
@@ -54,17 +60,21 @@ $stmt->close();
 </section>
 
 <script>
+// Busca dos elementos de input e tabela
 const input = document.getElementById('searchInput');
 const table = document.getElementById('countriesTable');
+
+// Evento de teclado para filtrar linhas enquanto o usuário digita
 input.addEventListener('keyup', function() {
-    const term = this.value.toLowerCase();
+    const term = this.value.toLowerCase(); // termo de pesquisa em minúsculas
     const rows = table.getElementsByTagName('tr');
+    // Começa em 1 para pular o cabeçalho da tabela
     for (let i = 1; i < rows.length; i++) {
-        const txt = rows[i].innerText.toLowerCase();
+        const txt = rows[i].innerText.toLowerCase(); // texto completo da linha
+        // Exibe a linha se o termo for encontrado, caso contrário esconde
         rows[i].style.display = txt.includes(term) ? '' : 'none';
     }
 });
 </script>
-
 
 <?php require 'footer.php'; ?>

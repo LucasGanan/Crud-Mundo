@@ -1,4 +1,6 @@
 <?php
+// Arquivo PHP de cabeçalho do site. Aqui apenas é aberto o bloco PHP
+// para manter compatibilidade com includes, mas não há lógica neste trecho.
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -22,8 +24,12 @@
   </header>
   <main class="container">
     <?php
+    // Verifica se há uma mensagem passada pela URL (parâmetro "msg").
+    // Esse recurso é usado para mostrar avisos após operações (ex: "País adicionado com sucesso").
     if (!empty($_GET['msg'])) {
+        // Protege contra códigos HTML maliciosos.
         $msg = htmlspecialchars($_GET['msg']);
+        // Exibe a mensagem na tela dentro de uma div.
         echo "<div class='msg'>{$msg}</div>";
     }
     ?>
